@@ -1,0 +1,21 @@
+info:
+  title: GKE deployment Template
+  author: Winston
+  description: Creates a new GKE instance
+  version: 1.0
+properties:
+  name:
+    type: string
+    description: The name of the cluster
+    maxLength: 40
+    minLength: 4
+    pattern: (^[a-z])[a-z0-9-]+([0-9a-z]$)
+  initialNodeCount: 3
+  locations:
+    type: array
+    description: List of locations
+    enum: us-central1-a
+  version:
+    type: string
+    description: The version of GKE to use
+    pattern: ((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))-gke\.(?:0|[1-9]\d*)
