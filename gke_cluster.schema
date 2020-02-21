@@ -3,6 +3,11 @@ info:
   author: Winston
   description: Creates a new GKE instance
   version: 1.0
+
+required:
+  - name
+  - description
+
 properties:
   name:
     type: string
@@ -19,3 +24,7 @@ properties:
     type: string
     description: The version of GKE to use
     pattern: ((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))-gke\.(?:0|[1-9]\d*)
+  description:
+    type: string
+    description: The description of the GCP component
+    minLength: 10
