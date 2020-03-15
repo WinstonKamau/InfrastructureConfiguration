@@ -1,0 +1,22 @@
+imports:
+- path: gke_cluster.py
+
+resources:
+  - name: gke-cluster
+    type: gke_cluster.py
+    properties:
+      zone: us-central1-a
+      cluster:
+        name: gke-cluster
+        nodePools:
+          - name: "node-pool"
+            initialNodeCount: 3
+            locations:
+              - us-central1-a
+            config:
+              machineType: f1-micro
+              oauthScopes:
+                - compute
+                - devstorage.read_only
+                - logging.write
+                - monitoring

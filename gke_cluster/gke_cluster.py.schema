@@ -1,0 +1,64 @@
+info:
+  title: GKE cluster Template
+  author: Winston
+  description: Creates a new GKE cluster with nodepools
+  version: 1.0
+
+imports:
+- path: gke_cluster.py
+
+required:
+- zone
+- cluster
+
+properties:
+  zone:
+    type: string
+    description: The GCP zone of the cluster. https://cloud.google.com/compute/docs/regions-zones
+    default: us-east1-b
+  cluster:
+    items:
+      name:
+        type: string
+        description: The name of the cluster
+        maxLength: 40
+        minLength: 4
+        pattern: (^[a-z])[a-z0-9-]+([0-9a-z]$)
+      nodePools:
+        type: array
+        description: The nodepools to be used on the cluster
+        items:
+          name:
+            type: string
+            description: The name of the node pool that should be unique
+            maxLength: 40
+            minLength: 4
+            pattern: (^[a-z])[a-z0-9-]+([0-9a-z]$)
+          initialNodeCount:
+            type: integer
+            description: The initial number of nodes of the nodepool
+            maximum: 6
+            minimum: 0
+          locations:
+            type: array
+            description: A list of locations where the cluster should be deployed to
+            items:
+              type: string
+              description: The zones of the nodes should be created in.
+          config:
+            type: object
+            description: The configuration of the nodes of the node nodePool
+            items:
+              machineType:
+                type: string
+                description: The type of machine to use for the nodes
+              oauthScopes:
+                type: array
+                description: The Auth scopes to be applied to the Nodes of the cluster
+                items:
+                  type: string
+                  description: A URL of the oauth scope to allow
+              imageType:
+                type: string
+                description: The type of image of the GKE cluster
+                default: "COS"
